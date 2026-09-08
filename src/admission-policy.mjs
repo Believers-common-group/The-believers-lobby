@@ -15,5 +15,17 @@ export function transitionSession(session, event) {
     };
   }
 
+  if (event?.source === 'warden' &&
+      event?.type === 'admission.denied' &&
+      event?.decision_id &&
+      event?.river_receipt_id) {
+    return {
+      ...session,
+      state: 'DENIED',
+      warden_decision_id: event.decision_id,
+      river_receipt_id: event.river_receipt_id
+    };
+  }
+
   return { ...session };
 }
