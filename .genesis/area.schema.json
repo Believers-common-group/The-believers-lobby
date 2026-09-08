@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://genesis.local/schemas/area.schema.json",
+  "title": "Genesis Area Manifest R0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "repository",
+    "admission",
+    "lobby",
+    "orchestration",
+    "evidence"
+  ],
+  "properties": {
+    "apiVersion": { "const": "genesis.network/v1" },
+    "kind": { "const": "Area" },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["areaId", "name"],
+      "properties": {
+        "areaId": {
+          "type": "string",
+          "pattern": "^GEN-AREA-[0-9]{3,}$"
+        },
+        "name": { "type": "string", "minLength": 1 }
+      }
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "owner", "repo"],
+      "properties": {
+        "provider": { "const": "github" },
+        "owner": { "type": "string", "minLength": 1 },
+        "repo": { "type": "string", "minLength": 1 }
+      }
+    },
+    "admission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["wardenRequired"],
+      "properties": {
+        "wardenRequired": { "const": true }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "digitalMe": {
+          "type": "string",
+          "enum": ["required", "supported", "optional", "disabled"]
+        }
+      }
+    },
+    "lobby": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["visible", "guestAccess"],
+      "properties": {
+        "visible": { "type": "boolean" },
+        "guestAccess": { "type": "boolean" }
+      }
+    },
+    "assistance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "adapter": { "type": ["string", "null"] },
+        "whatsapp": { "type": "boolean" }
+      }
+    },
+    "orchestration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider"],
+      "properties": {
+        "provider": { "const": "synnergyze" }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "required"],
+      "properties": {
+        "provider": { "const": "river" },
+        "required": { "const": true }
+      }
+    }
+  }
+}
