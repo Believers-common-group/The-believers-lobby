@@ -1,0 +1,28 @@
+name: Genesis Lobby TDD-RED
+
+on:
+  push:
+    branches:
+      - feat/genesis-lobby-r0.1-tdd-red
+  pull_request:
+    paths:
+      - '.genesis/**'
+      - 'docs/GENESIS-LOBBY-R0.1.md'
+      - 'tests/**'
+      - 'src/**'
+      - 'package.json'
+
+jobs:
+  tdd-red:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run RED contract test
+        run: npm test
