@@ -27,5 +27,17 @@ export function transitionSession(session, event) {
     };
   }
 
+  if (event?.source === 'warden' &&
+      event?.type === 'admission.more_information_required' &&
+      event?.decision_id &&
+      event?.river_receipt_id) {
+    return {
+      ...session,
+      state: 'MORE_INFORMATION_REQUIRED',
+      warden_decision_id: event.decision_id,
+      river_receipt_id: event.river_receipt_id
+    };
+  }
+
   return { ...session };
 }
